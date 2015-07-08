@@ -24,5 +24,9 @@
                 android:layout_height="wrap_content"
                 android:text="Connect"
                 android:id="@+id/connectBtn" android:layout_gravity="center_horizontal"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bleStatusLbl"/>
     </LinearLayout>
 </RelativeLayout>
