@@ -1,4 +1,4 @@
-package edu.ntust.dmlab.footbridge.app.backend.ble;
+package edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -13,15 +13,15 @@ import android.util.Log;
 public abstract class DeviceScanningHandler {
     private static final long SCAN_PERIOD = 30000;
 
-    protected final String deviceName = DeviceConfig.DEVICE_NAME;
+    protected final String deviceName;
     protected final ScanResultCallback callback;
     private final Handler cancellingTimer;
     private final ScanCanceler canceler;
 
     private volatile boolean scanning;
 
-    public DeviceScanningHandler(ScanResultCallback callback) {
-
+    public DeviceScanningHandler(String deviceName, ScanResultCallback callback) {
+        this.deviceName = deviceName;
         this.callback = callback;
         this.canceler = new ScanCanceler();
         this.cancellingTimer = new Handler();

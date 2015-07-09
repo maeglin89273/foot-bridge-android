@@ -1,4 +1,4 @@
-package edu.ntust.dmlab.footbridge.app.backend.ble;
+package edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble;
 
 import java.util.UUID;
 

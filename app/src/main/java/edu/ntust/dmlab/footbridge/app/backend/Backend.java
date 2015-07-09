@@ -9,11 +9,12 @@ import android.os.HandlerThread;
 import android.os.Message;
 import android.os.Process;
 import android.util.Log;
-import edu.ntust.dmlab.footbridge.app.backend.ble.BLECallback;
-import edu.ntust.dmlab.footbridge.app.backend.ble.DeviceConfig;
-import edu.ntust.dmlab.footbridge.app.backend.ble.DeviceScanningHandler;
+import edu.ntust.dmlab.footbridge.app.backend.streaming.TransferBridge;
+import edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble.BLECallback;
+import edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble.DeviceConfig;
+import edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble.DeviceScanningHandler;
 
-public class Backend {
+public class Backend extends TransferBridge {
 
     public static final class Actions {
         public static final String BLE_CONNECTION_STATE_CHANGED =

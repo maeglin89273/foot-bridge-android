@@ -1,9 +1,7 @@
-package edu.ntust.dmlab.footbridge.app.backend.ble;
+package edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-
-import java.util.UUID;
 
 /**
  * Created by maeglin89273 on 6/30/15.
@@ -12,8 +10,8 @@ class DeviceScanningHandlerAPI18 extends DeviceScanningHandler {
     private final BluetoothAdapter btAdptr;
     private EyewearScanCallback eyewearScanCallback;
 
-    DeviceScanningHandlerAPI18(BluetoothAdapter btAdptr, ScanResultCallback callback) {
-        super(callback);
+    DeviceScanningHandlerAPI18(BluetoothAdapter btAdptr, String deviceName, ScanResultCallback callback) {
+        super(deviceName, callback);
         this.btAdptr = btAdptr;
     }
 

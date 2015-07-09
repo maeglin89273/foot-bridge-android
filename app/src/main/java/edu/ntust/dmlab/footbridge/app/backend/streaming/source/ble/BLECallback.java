@@ -1,4 +1,4 @@
-package edu.ntust.dmlab.footbridge.app.backend.ble;
+package edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble;
 
 import android.bluetooth.*;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import edu.ntust.dmlab.footbridge.app.backend.Backend;
 /**
  * Created by maeglin89273 on 6/17/15.
  */
-public class BLECallback extends BluetoothGattCallback {
+public abstract class BLECallback extends BluetoothGattCallback {
 
     private Handler processor;
     public BLECallback(Handler processor) {

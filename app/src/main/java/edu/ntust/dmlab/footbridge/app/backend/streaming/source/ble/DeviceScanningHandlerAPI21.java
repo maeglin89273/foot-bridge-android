@@ -1,10 +1,9 @@
-package edu.ntust.dmlab.footbridge.app.backend.ble;
+package edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble;
 
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.*;
 import android.os.Build;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +17,8 @@ class DeviceScanningHandlerAPI21 extends DeviceScanningHandler {
 
     private EyewearScanCallback deviceScanCallback;
 
-    DeviceScanningHandlerAPI21(BluetoothAdapter btAdptr, ScanResultCallback callback) {
-        super(callback);
+    DeviceScanningHandlerAPI21(BluetoothAdapter btAdptr, String deviceName, ScanResultCallback callback) {
+        super(deviceName, callback);
 
         this.bleScanner = btAdptr.getBluetoothLeScanner();
     }
