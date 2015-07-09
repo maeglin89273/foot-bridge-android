@@ -17,17 +17,22 @@ class DeviceScanningHandlerAPI18 extends DeviceScanningHandler {
 
     @Override
     public void startScan() {
+        if (this.isScanning()) {
+            return;
+        }
         this.eyewearScanCallback = new EyewearScanCallback();
         this.btAdptr.startLeScan(this.eyewearScanCallback);
 
         super.startScan();
+
     }
 
     @Override
     public void stopScan() {
-        if (this.isScanning()) {
-            this.btAdptr.stopLeScan(this.eyewearScanCallback);
+        if (!this.isScanning()) {
+            return;
         }
+        this.btAdptr.stopLeScan(this.eyewearScanCallback);
         super.stopScan();
 
     }

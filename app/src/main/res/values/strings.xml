@@ -3,4 +3,15 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="source_choices">
+        <item>Build-in Sensors</item>
+        <item>DoorBLE</item>
+    </string-array>
+
+    <string-array name="path_choices">
+        <item>UDP Socket</item>
+        <item>PubNub</item>
+    </string-array>
+
 </resources>

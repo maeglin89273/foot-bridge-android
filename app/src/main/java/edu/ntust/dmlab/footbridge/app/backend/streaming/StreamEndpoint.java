@@ -10,5 +10,6 @@ public abstract class StreamEndpoint {
         this.statusListener = statusListener;
     }
     public abstract void startStreaming();
+    public abstract boolean isStreamingStarted();
     public abstract void endStreaming();
 }

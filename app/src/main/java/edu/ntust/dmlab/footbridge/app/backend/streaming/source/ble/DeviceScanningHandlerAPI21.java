@@ -25,6 +25,9 @@ class DeviceScanningHandlerAPI21 extends DeviceScanningHandler {
 
     @Override
     public void startScan() {
+        if (this.isScanning()) {
+            return;
+        }
 
         List<ScanFilter> filterList = new ArrayList<ScanFilter>();
         filterList.add(getFilter());
@@ -32,15 +35,16 @@ class DeviceScanningHandlerAPI21 extends DeviceScanningHandler {
 //        this.bleScanner.startScan(filterList, getSettings(), this.deviceScanCallback);
         this.bleScanner.startScan(this.deviceScanCallback);
         super.startScan();
+
     }
 
     @Override
     public void stopScan() {
-        if (this.isScanning()) {
-            this.bleScanner.stopScan(this.deviceScanCallback);
+        if (!this.isScanning()) {
+            return;
         }
+        this.bleScanner.stopScan(this.deviceScanCallback);
         super.stopScan();
-
     }
 
     private ScanFilter getFilter() {

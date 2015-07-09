@@ -13,7 +13,7 @@ public abstract class TransferBridge {
     private EndpointStatusListener sourceStatusListener;
     private EndpointStatusListener pathStatusListener;
 
-    public TransferBridge(StreamSource.AsyncConsumer transferTrigger, EndpointStatusListener sourceStatusListener, EndpointStatusListener pathStatusListener) {
+    protected void initCallbacks(StreamSource.AsyncConsumer transferTrigger, EndpointStatusListener sourceStatusListener, EndpointStatusListener pathStatusListener) {
         this.transferTrigger = transferTrigger;
         this.sourceStatusListener = sourceStatusListener;
         this.pathStatusListener = pathStatusListener;
@@ -29,6 +29,10 @@ public abstract class TransferBridge {
         this.source.startStreaming();
     }
 
+    public StreamSource getSource() {
+        return this.source;
+    }
+
     public void setPath(StreamPath path) {
         if (this.path != null) {
             this.path.endStreaming();
@@ -36,6 +40,15 @@ public abstract class TransferBridge {
         path.setStatusListener(this.pathStatusListener);
         this.path = path;
         this.path.startStreaming();
+    }
+
+    public StreamPath getPath() {
+        return this.path;
+    }
+
+    public void breakBridge() {
+        this.source.endStreaming();
+        this.path.endStreaming();
     }
 
 }

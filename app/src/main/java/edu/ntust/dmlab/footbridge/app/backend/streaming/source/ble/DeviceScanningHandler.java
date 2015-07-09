@@ -27,11 +27,11 @@ public abstract class DeviceScanningHandler {
         this.cancellingTimer = new Handler();
     }
 
-    public static DeviceScanningHandler newInstance(BluetoothAdapter btAdptr, ScanResultCallback callback) {
+    public static DeviceScanningHandler newInstance(BluetoothAdapter btAdptr, String deviceName, ScanResultCallback callback) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return new DeviceScanningHandlerAPI21(btAdptr, callback);
+            return new DeviceScanningHandlerAPI21(btAdptr, deviceName, callback);
         }
-        return new DeviceScanningHandlerAPI18(btAdptr, callback);
+        return new DeviceScanningHandlerAPI18(btAdptr, deviceName, callback);
 
     }
 
