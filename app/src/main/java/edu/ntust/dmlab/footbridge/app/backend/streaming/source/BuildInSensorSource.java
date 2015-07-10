@@ -30,6 +30,8 @@ public class BuildInSensorSource extends StreamSource {
         this.senMgr.registerListener(this.sensorListener, accSensor, SensorManager.SENSOR_DELAY_GAME);
         this.senMgr.registerListener(this.sensorListener, gyroSensor, SensorManager.SENSOR_DELAY_GAME);
         this.streamingStarted = true;
+        this.statusListener.onEndpointConnected("connected");
+
     }
 
     @Override
@@ -41,6 +43,7 @@ public class BuildInSensorSource extends StreamSource {
     public void endStreaming() {
         this.streamingStarted = false;
         this.senMgr.unregisterListener(this.sensorListener);
+        this.statusListener.onEndpointConnected("disconnected");
     }
 
     private class SensorListener implements SensorEventListener {

@@ -41,7 +41,7 @@ public class UDPPath extends StreamPath {
         try {
             delegate = new DatagramSocket();
             delegate.connect(new InetSocketAddress(this.ip, PORT));
-            this.statusListener.onEndpointConnected("UDP Path connected");
+            this.statusListener.onEndpointConnected("connected");
         } catch (SocketException e) {
             e.printStackTrace();
             Log.d("udp path", "cannot connect to server");
@@ -77,7 +77,7 @@ public class UDPPath extends StreamPath {
             this.delegate.close();
         }
         this.thread.quitSafely();
-        this.statusListener.onEndpointDisconnected("UDP Path disconnected");
+        this.statusListener.onEndpointDisconnected("disconnected");
     }
 
     private class TransferHandler extends Handler {

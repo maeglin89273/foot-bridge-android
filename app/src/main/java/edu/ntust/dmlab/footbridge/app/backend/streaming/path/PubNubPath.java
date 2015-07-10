@@ -31,7 +31,8 @@ public class PubNubPath extends StreamPath {
     public void startStreaming() {
         this.delegate = new Pubnub(PUBLISH_KEY, SUBSCRIBE_KEY);
         this.delegate.time(this.callback);
-
+        this.streamingStarted = true;
+        this.statusListener.onEndpointConnected("connected");
     }
 
     @Override
@@ -46,19 +47,15 @@ public class PubNubPath extends StreamPath {
             this.delegate.shutdown();
             this.delegate = null;
         }
-        this.statusListener.onEndpointDisconnected("PubNub disconnected");
+        this.statusListener.onEndpointDisconnected("disconnected");
     }
 
     private class PubNubCallback extends com.pubnub.api.Callback {
-        @Override
-        public void successCallback(String channel, Object response) {
-            Log.d("pubnub success", response.toString());
-            PubNubPath.this.streamingStarted = true;
-        }
 
         @Override
         public void errorCallback(String channel, PubnubError error) {
-            Log.d("pubnub", error.toString());
+            Log.d("pubnub error", error.toString());
+            endStreaming();
         }
     }
 }

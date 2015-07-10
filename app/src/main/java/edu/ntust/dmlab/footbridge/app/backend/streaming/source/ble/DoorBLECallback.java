@@ -21,7 +21,7 @@ public class DoorBLECallback extends BLECallback {
     public static final UUID NOTIFICATION_DESCRIPTOR = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
 
     public DoorBLECallback(StreamSource.AsyncConsumer consumer, EndpointStatusListener statusListener) {
-        super(DoorBLESource.DEVICE_NAME, consumer, statusListener);
+        super(consumer, statusListener);
     }
 
     @Override

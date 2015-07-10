@@ -13,12 +13,11 @@ import edu.ntust.dmlab.footbridge.app.backend.streaming.source.StreamSource;
  * Created by maeglin89273 on 6/17/15.
  */
 public abstract class BLECallback extends BluetoothGattCallback {
-    protected final String deviceName;
+
     protected final EndpointStatusListener statusListener;
     protected final StreamSource.AsyncConsumer consumer;
 
-    public BLECallback(String deviceName, StreamSource.AsyncConsumer consumer, EndpointStatusListener statusListener) {
-        this.deviceName = deviceName;
+    public BLECallback(StreamSource.AsyncConsumer consumer, EndpointStatusListener statusListener) {
         this.consumer = consumer;
         this.statusListener = statusListener;
     }
@@ -29,12 +28,12 @@ public abstract class BLECallback extends BluetoothGattCallback {
     public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
         switch (newState) {
             case BluetoothProfile.STATE_CONNECTED:
-                this.statusListener.onEndpointConnected(this.deviceName + " connected");
+                this.statusListener.onEndpointConnected("connected");
                 gatt.discoverServices();
 
                 break;
             case BluetoothProfile.STATE_DISCONNECTED:
-                this.statusListener.onEndpointConnected(this.deviceName + " disconnected");
+                this.statusListener.onEndpointConnected("disconnected");
                 break;
         }
     }

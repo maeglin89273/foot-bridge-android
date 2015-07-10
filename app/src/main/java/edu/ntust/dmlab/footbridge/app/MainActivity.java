@@ -7,13 +7,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.*;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import edu.ntust.dmlab.footbridge.app.backend.Backend;
+import edu.ntust.dmlab.footbridge.app.backend.streaming.path.PubNubPath;
 import edu.ntust.dmlab.footbridge.app.backend.streaming.path.StreamPath;
+import edu.ntust.dmlab.footbridge.app.backend.streaming.path.UDPPath;
+import edu.ntust.dmlab.footbridge.app.backend.streaming.source.BuildInSensorSource;
 import edu.ntust.dmlab.footbridge.app.backend.streaming.source.StreamSource;
+import edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble.DoorBLESource;
 
 
 public class MainActivity extends Activity {
@@ -28,6 +33,8 @@ public class MainActivity extends Activity {
     private Backend backend;
     private BroadcastReceiver receiver;
     private boolean ipInputEnabledTmp;
+    private String selectedSourceString;
+    private String selectedPathString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +55,13 @@ public class MainActivity extends Activity {
         backend = new Backend(this);
     }
     private void setupUIs() {
-        ArrayAdapter<CharSequence> sourceAdapter = ArrayAdapter.createFromResource(this, R.array.source_choices, R.layout.support_simple_spinner_dropdown_item);
+        final ArrayAdapter<CharSequence> sourceAdapter = ArrayAdapter.createFromResource(this, R.array.source_choices, android.R.layout.simple_spinner_item);
+        sourceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.sourceSpinner.setAdapter(sourceAdapter);
         this.sourceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                MainActivity.this.selectedSourceString = sourceSpinner.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -62,11 +70,14 @@ public class MainActivity extends Activity {
             }
         });
 
-        ArrayAdapter<CharSequence> pathAdapter = ArrayAdapter.createFromResource(this, R.array.path_choices, R.layout.support_simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> pathAdapter = ArrayAdapter.createFromResource(this, R.array.path_choices, android.R.layout.simple_spinner_item);
+        pathAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.pathSpinner.setAdapter(pathAdapter);
         this.pathSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                MainActivity.this.selectedPathString = pathSpinner.getItemAtPosition(position).toString();
+                MainActivity.this.ipTxt.setEnabled(!MainActivity.this.selectedPathString.equals("PubNub"));
 
             }
 
@@ -82,18 +93,38 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 if (connectBtn.getText().toString().equals("Connect")) {
                     disableInputs();
-                    StreamSource source;
-                    StreamPath path;
+                    StreamSource source = newSourceInstance(selectedSourceString);
+                    StreamPath path = newPathInstance(selectedPathString);
                     backend.setPath(path);
                     backend.setSource(source);
                     connectBtn.setText("Disconnect");
                 } else {
-                    enableInputs();
                     backend.breakBridge();
                     connectBtn.setText("Connect");
+                    enableInputs();
                 }
             }
         });
+    }
+
+    private StreamPath newPathInstance(String selectedPathString) {
+        switch (selectedPathString) {
+            case "PubNub":
+                return new PubNubPath();
+            case "UDP Socket":
+                return new UDPPath(ipTxt.getText().toString());
+        }
+        return null;
+    }
+
+    private StreamSource newSourceInstance(String selectedSourceString) {
+        switch (selectedSourceString) {
+            case "Build-in Sensors":
+                return new BuildInSensorSource(this);
+            case "DoorBLE":
+                return new DoorBLESource(this);
+        }
+        return null;
     }
 
     private void enableInputs() {

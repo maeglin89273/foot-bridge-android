@@ -13,15 +13,15 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true">
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Source:"
+                android:id="@+id/sourceLbl"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Source:"
-                    android:id="@+id/sourceLbl" android:layout_weight="1"/>
             <Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -31,15 +31,15 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/sourceStateLbl" android:layout_weight="1"/>
         </LinearLayout>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Output Path:"
+                android:id="@+id/pathLbl"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Output Path:"
-                    android:id="@+id/pathLbl" android:layout_weight="1"/>
             <Spinner
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
