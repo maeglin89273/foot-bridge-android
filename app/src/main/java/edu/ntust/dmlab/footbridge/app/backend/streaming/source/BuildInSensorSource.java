@@ -63,7 +63,7 @@ public class BuildInSensorSource extends StreamSource {
             }
 
             if (data.containsKey("acc") && data.containsKey("gyro")) {
-                data.putLong("timestamp", event.timestamp);
+                data.putLong("timestamp", System.currentTimeMillis());
                 BuildInSensorSource.this.consumer.consumeData(data);
                 data = new Bundle();
             }

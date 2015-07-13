@@ -24,7 +24,7 @@ public class PubNubPath extends StreamPath {
 
     @Override
     protected void uncheckedTransfer(JSONObject jsonData) {
-        delegate.publish(CHANNEL, jsonData, this.callback);
+        this.delegate.publish(CHANNEL, jsonData, this.callback);
     }
 
     @Override

@@ -66,7 +66,7 @@ public abstract class BLESource extends StreamSource {
 
             @Override
             public void deviceNotFound() {
-                BLESource.this.statusListener.onEndpointDisconnected(BLESource.this.deviceName + " disconnected");
+                BLESource.this.statusListener.onEndpointDisconnected("disconnected");
             }
         };
 

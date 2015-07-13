@@ -19,6 +19,7 @@ import edu.ntust.dmlab.footbridge.app.backend.streaming.path.UDPPath;
 import edu.ntust.dmlab.footbridge.app.backend.streaming.source.BuildInSensorSource;
 import edu.ntust.dmlab.footbridge.app.backend.streaming.source.StreamSource;
 import edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble.DoorBLESource;
+import edu.ntust.dmlab.footbridge.app.backend.streaming.source.ble.SlipperBLESource;
 
 
 public class MainActivity extends Activity {
@@ -123,6 +124,8 @@ public class MainActivity extends Activity {
                 return new BuildInSensorSource(this);
             case "DoorBLE":
                 return new DoorBLESource(this);
+            case "SlipperBLE":
+                return new SlipperBLESource(this);
         }
         return null;
     }

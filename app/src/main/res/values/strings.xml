@@ -7,6 +7,7 @@
     <string-array name="source_choices">
         <item>Build-in Sensors</item>
         <item>DoorBLE</item>
+        <item>SlipperBLE</item>
     </string-array>
 
     <string-array name="path_choices">
