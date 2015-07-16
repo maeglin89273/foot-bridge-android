@@ -58,7 +58,11 @@ public class SlipperBLECallback extends BLECallback {
                 this.prepareNextRound();
             }
         }
+        /*byte[] rawData = characteristic.getValue();
 
+        float value = toValue(rawData[0], rawData[1]);
+        this.accValueArray[ACC_UUID_INDEX_MAP.get(uuid)] = value;
+        this.consumer.consumeData(this.buildBundle());*/
     }
 
     private static float toValue(byte hsb, byte lsb) {
@@ -67,6 +71,7 @@ public class SlipperBLECallback extends BLECallback {
 
     private Bundle buildBundle() {
         Bundle data = new Bundle();
+        data.putLong("timestamp", System.currentTimeMillis());
         data.putFloatArray("acc", this.accValueArray);
         data.putFloatArray("gyro", this.gyroValueArray);
         return data;

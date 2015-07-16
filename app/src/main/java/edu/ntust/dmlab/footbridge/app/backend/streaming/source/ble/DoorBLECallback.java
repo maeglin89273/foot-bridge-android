@@ -31,6 +31,7 @@ public class DoorBLECallback extends BLECallback {
     }
 
     private Bundle decodeData(BluetoothGattCharacteristic characteristic) {
+        this.fix(characteristic.getValue());
         Bundle data = new Bundle();
 
         int offset = 0;
@@ -63,6 +64,19 @@ public class DoorBLECallback extends BLECallback {
         //just transfer byte array, it's more efficient
 //        data.putByteArray("data", characteristic.getValue());
 //        return data;
+    }
+
+    private void fix(byte[] data) {
+        int signStoredByteIndex = data.length - 1;
+        int bitIndex = 0;
+        for (int i = 0; i < 16; i++) {
+            data[i] |= (data[signStoredByteIndex] << (7 - bitIndex)) & ((byte)0x80);
+            bitIndex++;
+            if (bitIndex == 7) {
+                signStoredByteIndex--;
+                bitIndex = 0;
+            }
+        }
     }
 
     @Override
